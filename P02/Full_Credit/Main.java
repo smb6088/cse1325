@@ -4,16 +4,16 @@ public class Main{
 	public static void main(String[] args) {
 
 		Scanner time = new Scanner(System.in);
-		System.out.println("Hours?");
+		System.out.printf("Hours? ");
 		int hours = time.nextInt();
-		System.out.println("Minutes?");
+		System.out.printf("Minutes? ");
 		int min = time.nextInt();
-		System.out.println("Second?");
+		System.out.printf("Second? ");
 		int sec = time.nextInt();
 
 		Clock t1 = new Clock(hours, min, sec);
 
-		System.out.println(t1);
+		System.out.println("The Time is " + t1);
 
 	}
 }
