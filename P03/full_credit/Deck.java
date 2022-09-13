@@ -6,7 +6,7 @@ public class Deck{
 	private Stack<Card> deck;
 
 	public Deck (){
-		this.deck = deck;
+		deck = new Stack<Card>();
 		for(Suit i : Suit.values())
 		{
 			for(int j = 0 ; j < 10  ; j++)
