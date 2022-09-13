@@ -1,11 +1,11 @@
 import java.util.Stack;
-import java.util.Collections;
+import java.util.*;
 
 public class Deck{
 
-	public Stack<Card> deck;
+	private Stack<Card> deck;
 
-	public Deck (Stack<Card> deck){
+	public Deck (){
 		this.deck = deck;
 		for(Suit i : Suit.values())
 		{
@@ -14,15 +14,16 @@ public class Deck{
 				deck.push(new Card (new Rank(j),i));
 			}
 		}
+		Shuffle(deck);
 	}
 
 
  //@Override
- public static void shuffle(Stack<Card> deck)
+ public static void Shuffle(Stack<Card> deck)
  {
  	Collections.shuffle(deck);
  }
- public Card deal(Stack<Card> deck){
+ public Card deal(){
  	if(deck.empty() == true)
  	{
  		try{
@@ -35,7 +36,7 @@ public class Deck{
  	}
  	return deck.pop();
  }
- public boolean isEmpty(Stack<Card> deck)
+ public boolean isEmpty()
  {
  	return deck.empty();
  }
