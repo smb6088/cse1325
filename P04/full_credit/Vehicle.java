@@ -14,11 +14,11 @@ public class Vehicle
 
 	}
 	public double fuelCosumed(){
-
+		reutrn 
 	}
 	public double dollarsToTravel(double miles)
 	{
-
+		return ;
 	}
 	public String toString()
 	{

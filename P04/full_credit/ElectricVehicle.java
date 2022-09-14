@@ -2,15 +2,12 @@ public class ElectricVehicle extends Vehicle {
 	public ElectricVehicle(int year, String make, String model, BodyStyle bodyStyle, double whPerMile, double kwhInBattery)
 	{
 		super(year, make, model, bodyStyle);
-		//super(make);
-		//super(model);
-		//super(bodyStyle);
 		this.whPerMile = whPerMile;
 		this.kwhInBattery = kwhInBattery;
 	}
 
 	@Override
-	
+
 	public double range(){
 		return kwhInBattery / (whPerMile/1000);
 	}
