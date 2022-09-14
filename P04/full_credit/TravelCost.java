@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class TravelCost {
 	public static void main(String[] args)
@@ -12,7 +13,6 @@ public class TravelCost {
 		System.out.print("How many miles is your trip?");
 		miles = scan.nextDouble();
 		ArrayList<Vehicle> vehicles = new ArrayList<>();
-
 		vehicles.add(new ElectricVehicle(2022, "Telsa",    "Model S Plaid",   BodyStyle.Sedan,     297, 100  ));
         vehicles.add(new ElectricVehicle(2022, "Telsa",    "Model 3 LR",      BodyStyle.Sedan,     242,  82  ));
         vehicles.add(new ElectricVehicle(2022, "GM",       "Bolt",            BodyStyle.Hatchback, 286,  66  ));
@@ -26,9 +26,9 @@ public class TravelCost {
         vehicles.add(new GasVehicle(     2022, "Chrysler", "Pacifica",        BodyStyle.Minivan,    24,  19  ));
         vehicles.add(new GasVehicle(     2022, "Chrysler", "Pacifica Hybrid", BodyStyle.Minivan,    30,  16.5));
 
-        for(Vehicle num : vehicles)
+        for(Vehicle num: vehicles)
         {
-        	System.out.println(vehicles.range());
+        	System.out.println(num.range());
         }
 	}
 }
