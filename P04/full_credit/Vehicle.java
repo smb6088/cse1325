@@ -1,6 +1,6 @@
-Public class Vechile
+public class Vehicle
 {
-	public Vechile(int year, String make, String model, BodyStyle bodyStyle)
+	public Vehicle(int year, String make, String model, BodyStyle bodyStyle)
 	{
 		this.year = year;
 		this.make = make;

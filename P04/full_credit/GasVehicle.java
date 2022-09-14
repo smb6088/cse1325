@@ -1,10 +1,6 @@
 public class GasVehicle extends Vehicle {
 	public GasVehicle(int year, String make, String model, BodyStyle bodyStyle, double milesPerGallon, double gallonsinTank)
 	{
-		this.year = year;
-		this.make = make;
-		this.model = model;
-		this.bodyStyle = bodyStyle;
 		this.milesPerGallon = milesPerGallon;
 		this.gallonsinTank = gallonsinTank;
 	}

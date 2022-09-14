@@ -1,10 +1,6 @@
 public class ElectricVehicle extends Vehicle {
 	public ElectricVehicle(int year, String make, String model, BodyStyle bodyStyle, double whPerMile, double kwhInBattery)
 	{
-		this.year = year;
-		this.make = make;
-		this.model = model;
-		this.bodyStyle = bodyStyle;
 		this.whPerMile = whPerMile;
 		this.kwhInBattery = kwhInBattery;
 	}
@@ -19,7 +15,7 @@ public class ElectricVehicle extends Vehicle {
 	}
 	public double dollarsToTravel(double miles)
 	{
-		return fuelConsumed(mile) * (centsPerkKwhOfElectricity/100);
+		return fuelConsumed(miles) * (centsPerkKwhOfElectricity/100);
 	}
 
 	private double whPerMile;
