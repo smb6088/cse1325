@@ -1,4 +1,4 @@
-public class GasVehicle extends Vehicle {
+ public class GasVehicle extends Vehicle {
 	public GasVehicle(int year, String make, String model, BodyStyle bodyStyle, double milesPerGallon, double gallonsinTank)
 	{
 		super(year, make, model, bodyStyle);
@@ -7,18 +7,18 @@ public class GasVehicle extends Vehicle {
 	}
 
 	@Override
-
-	public double range()
-	{
+	public double range() {
 		return gallonsinTank * milesPerGallon;
 	}
-	public double fuelConsumed(double miles)
-	{
-		return miles/milesPerGallon;
+		
+	@Override
+	public double fuelConsumed(double miles) { 
+		return (miles/milesPerGallon);
 	}
+	@Override
 	public double dollarsToTravel(double miles)
 	{
-		return fuelConsumed(miles) * dollarsPerGallonOfGas;
+		return (fuelConsumed(miles) * dollarsPerGallonOfGas);
 	}
 
 	private double milesPerGallon;

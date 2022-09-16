@@ -7,17 +7,18 @@ public class ElectricVehicle extends Vehicle {
 	}
 
 	@Override
-
 	public double range(){
 		return kwhInBattery / (whPerMile/1000);
 	}
+	@Override
 	public double fuelConsumed(double miles)
 	{
 		return miles*(whPerMile/1000);
 	}
+	@Override
 	public double dollarsToTravel(double miles)
 	{
-		return fuelConsumed(miles) * (centsPerkKwhOfElectricity/100);
+		return (fuelConsumed(miles) * (centsPerkKwhOfElectricity/100));
 	}
 
 	private double whPerMile;

@@ -1,4 +1,4 @@
-public class Vehicle
+public abstract class Vehicle
 {
 	public Vehicle(int year, String make, String model, BodyStyle bodyStyle)
 	{
@@ -8,21 +8,12 @@ public class Vehicle
 		this.bodyStyle = bodyStyle;
 	}
 
-	//@Override
-
-	public double range(){
-
-	}
-	public double fuelCosumed(){
-		reutrn 
-	}
-	public double dollarsToTravel(double miles)
-	{
-		return ;
-	}
+	public abstract double range();
+	public abstract double fuelConsumed(double miles);
+	public abstract double dollarsToTravel(double miles);
 	public String toString()
 	{
-		return "";
+		return  year + " " +  make + " " + model + " " + bodyStyle;
 	}
 
 	private int year;
