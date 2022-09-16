@@ -6,9 +6,9 @@ public class TravelCost {
 	{
 		Scanner scan = new Scanner(System.in);
 		System.out.print("What is the price per Gallon of gas (dollars)?");
-		GasVehicle.dollarsPerGallonOfGas = scan.nextDouble();
+		dollarsPerGallonOfGas = scan.nextDouble();
 		System.out.print("What is the price per KWh of electricity (cents)?");
-		ElectricVehicle.centsPerkKwhOfElectricity = scan.nextDouble();
+		centsPerkKwhOfElectricity = scan.nextDouble();
 		double miles;
 		System.out.print("How many miles is your trip?");
 		miles = scan.nextDouble();
@@ -29,11 +29,11 @@ public class TravelCost {
 
         for(Vehicle num: vehicles1)
         {
-        	System.out.println(  num.dollarsToTravel(ElectricVehicle.centsPerkKwhOfElectricity) + "(Range " + Math.round(num.range()) + ")"  + num.toString());
+        	System.out.println(  num.dollarsToTravel(centsPerkKwhOfElectricity) + "(Range " + Math.round(num.range()) + ")"  + num.toString());
         }
         for(Vehicle number: vehicles2)
         {
-        	System.out.println(  number.dollarsToTravel(GasVehicle.dollarsPerGallonOfGas) + "(Range " + Math.round(number.range()) + ")"  + number.toString());
+        	System.out.println(  number.dollarsToTravel(dollarsPerGallonOfGas) + "(Range " + Math.round(number.range()) + ")"  + number.toString());
         }
 	}
 }

@@ -23,5 +23,5 @@
 
 	private double milesPerGallon;
 	private double gallonsinTank;
-	public static double dollarsPerGallonOfGas;
+	public static double dollarsPerGallonOfGas = Double.NaN;
 }
