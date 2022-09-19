@@ -1,3 +1,4 @@
+
  public class GasVehicle extends Vehicle {
 	public GasVehicle(int year, String make, String model, BodyStyle bodyStyle, double milesPerGallon, double gallonsinTank)
 	{
@@ -23,5 +24,5 @@
 
 	private double milesPerGallon;
 	private double gallonsinTank;
-	public static double dollarsPerGallonOfGas = Double.NaN;
+	public static double dollarsPerGallonOfGas = 0;
 }

@@ -1,14 +1,17 @@
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.text.DecimalFormat;
+
 
 public class TravelCost {
 	public static void main(String[] args)
 	{
+		DecimalFormat df = new DecimalFormat("###.##");
 		Scanner scan = new Scanner(System.in);
 		System.out.print("What is the price per Gallon of gas (dollars)?");
-		dollarsPerGallonOfGas = scan.nextDouble();
+		GasVehicle.dollarsPerGallonOfGas = scan.nextDouble();
 		System.out.print("What is the price per KWh of electricity (cents)?");
-		centsPerkKwhOfElectricity = scan.nextDouble();
+		ElectricVehicle.centsPerkKwhOfElectricity = scan.nextDouble();
 		double miles;
 		System.out.print("How many miles is your trip?");
 		miles = scan.nextDouble();
@@ -29,11 +32,11 @@ public class TravelCost {
 
         for(Vehicle num: vehicles1)
         {
-        	System.out.println(  num.dollarsToTravel(centsPerkKwhOfElectricity) + "(Range " + Math.round(num.range()) + ")"  + num.toString());
+        	System.out.println(  "$ " + df.format(num.dollarsToTravel(miles)) + " (Range " + Math.round(num.range()) + ") "  + num.toString());
         }
         for(Vehicle number: vehicles2)
         {
-        	System.out.println(  number.dollarsToTravel(dollarsPerGallonOfGas) + "(Range " + Math.round(number.range()) + ")"  + number.toString());
+        	System.out.println( "$ " +  df.format(number.dollarsToTravel(miles)) + " (Range " + Math.round(number.range()) + ") "  + number.toString());
         }
 	}
 }
