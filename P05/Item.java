@@ -7,7 +7,6 @@ public class Item {
 		this.price = price;
 	}
 
-	@Override
 
 	public String name(){
 		return name;
@@ -23,7 +22,7 @@ public class Item {
 	}
 	public String toString()
 	{
-		return "" + name + description + price + cost;
+		return "" + name;
 	}
 
 	private String name;
