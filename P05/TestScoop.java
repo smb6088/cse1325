@@ -71,10 +71,10 @@ public class TestScoop {
 					System.out.println("MixIn? ");
 					choice = scan.nextInt();
 
-					for(MixInAmount fav : MixInAmount){
-						System.out.println( i +")" + MixInAmount.values());
-						i++;
-					}
+					System.out.println("0) Light");
+					System.out.println("1) Normal");
+					System.out.println("2) Extra");
+					System.out.println("3) Drenched");
 					i= 0;
 					System.out.println("Amount? ");
 					choice = scan.nextInt();
