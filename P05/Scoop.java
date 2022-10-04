@@ -18,7 +18,17 @@ public class Scoop {
 		}
 		else
 		{
-			return flavor + 
+			String returnStr = "";
+        	for (int i = 0; i < mixins.size() ; i++) {
+            if(i == 0){
+            	returnStr = mixins.get(i);
+            }
+            else {
+                returnStr = returnStr + ", " + mixins.get(i);
+            }
+        }
+        return flavor + " with  " + returnStr;
+			
 		}
 	}
 
