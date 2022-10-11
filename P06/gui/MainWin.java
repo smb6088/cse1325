@@ -156,7 +156,7 @@ public class MainWin extends JFrame
     public void onCreateScoopClick(){
 
         Object[] arr = emporium.iceCreamFlavors();
-        ImageIcon icon = new ImageIcon("P06\\gui\\pexels-photo-1262302.jpeg");
+        ImageIcon icon = new ImageIcon("P06/gui/Untitled_Artwork.jpg");
         Object name = (Object) JOptionPane.showInputDialog(this,
            "Selecte Ice Cream Flavor",
            "Creating a Scoop",
@@ -175,7 +175,7 @@ public class MainWin extends JFrame
     do
     {
         Object[] arr2 = emporium.mixInFlavors();
-        ImageIcon icon2 = new ImageIcon("P06\\gui\\pexels-photo-1262302.jpeg");
+        ImageIcon icon2 = new ImageIcon("P06/gui/Untitled_Artwork.jpg");
         Object mix = (Object) JOptionPane.showInputDialog(this,
            "Selecte Mix Cream Flavor",
            "Creating a Scoop",
@@ -188,7 +188,7 @@ public class MainWin extends JFrame
             
 
         Object[] arr3 = MixInAmount.values();
-        ImageIcon icon3 = new ImageIcon("P06\\gui\\pexels-photo-1262302.jpeg");
+        ImageIcon icon3 = new ImageIcon("P06/gui/Untitled_Artwork.jpg");
         Object amount = (Object) JOptionPane.showInputDialog(this,
            "Selecte Ice Cream Flavor",
            "Creating a Scoop",
