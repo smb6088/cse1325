@@ -12,7 +12,7 @@ public class MainWin extends JFrame
     {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(400,200);
-
+        this.emporium = new Emporium();
 
         //menu
 
@@ -54,7 +54,7 @@ public class MainWin extends JFrame
         menubar.add(create);
         menubar.add(help);
         setJMenuBar(menubar);
-        this.emporium = new Emporium();
+        
         display = new JLabel();
         display.setFont(new Font("SansSerif", Font.BOLD, 18));
         add(display, BorderLayout.CENTER);
@@ -87,7 +87,8 @@ public class MainWin extends JFrame
 
     public void onCreateMixInFlavorClick()
     {
-        String name = JOptionPane.showInputDialog(this,"Name?");
+        String name = JOptionPane.showInputDialog(this,
+            "Name?");
         String description = JOptionPane.showInputDialog(this,"Description?");
         int price = Integer.parseInt(JOptionPane.showInputDialog(this,"Price?"));
         int cost = Integer.parseInt(JOptionPane.showInputDialog(this,"Cost?"));
@@ -143,16 +144,69 @@ public class MainWin extends JFrame
             display.setText("<html>" +"<p>MIX_IN_FLAVORS</p>" + Arrays.toString(arr).replace("[","").replace("]", "").replaceAll(",", "<br/>")
                 + "</html>");
            }
-        else
+        else if(Screen.SCOOPS == screen)
         {
             Object[] arr = emporium.scooop();
-            display.setText("<html>" +"<p>SCOOPS</p>" + Arrays.toString(arr).replace("[","").replace("]", "").replaceAll(",", "<br/>")
+            display.setText("<html>" +"<p>SCOOPS</p>" + Arrays.toString(arr).replace("[","").replace("]", "")
                 + "</html>");
         }
         
     }
 
     public void onCreateScoopClick(){
+
+        Object[] arr = emporium.iceCreamFlavors();
+        ImageIcon icon = new ImageIcon("P06\\gui\\pexels-photo-1262302.jpeg");
+        Object name = (Object) JOptionPane.showInputDialog(this,
+           "Selecte Ice Cream Flavor",
+           "Creating a Scoop",
+           JOptionPane.OK_CANCEL_OPTION,
+           icon,
+           arr,
+           arr[0]);
+        IceCreamFlavor ice = (IceCreamFlavor) name;
+        if(ice == null)
+        {
+            System.err.println("Ice Cream not selected");
+        }
+        Scoop cop = new Scoop(ice);
+        int i =0;
+        Object[] temp = emporium.mixInFlavors();
+    do
+    {
+        Object[] arr2 = emporium.mixInFlavors();
+        ImageIcon icon2 = new ImageIcon("P06\\gui\\pexels-photo-1262302.jpeg");
+        Object mix = (Object) JOptionPane.showInputDialog(this,
+           "Selecte Mix Cream Flavor",
+           "Creating a Scoop",
+           JOptionPane.OK_CANCEL_OPTION,
+           icon2,
+           arr2,
+           arr2[0]);
+
+            MixInFlavor mixu = (MixInFlavor) mix;
+            
+
+        Object[] arr3 = MixInAmount.values();
+        ImageIcon icon3 = new ImageIcon("P06\\gui\\pexels-photo-1262302.jpeg");
+        Object amount = (Object) JOptionPane.showInputDialog(this,
+           "Selecte Ice Cream Flavor",
+           "Creating a Scoop",
+           JOptionPane.OK_CANCEL_OPTION,
+           icon3,
+           arr3,
+           arr3[0]);
+            MixInAmount mout = (MixInAmount) amount;
+        MixIn enmix = new MixIn(mixu,mout);
+
+        i++;
+
+        cop.addMixIn(enmix);
+    }
+    while(i < temp.length);
+        emporium.addScoop(cop);
+        view(Screen.SCOOPS);
+
 
     }
     private enum Screen {
