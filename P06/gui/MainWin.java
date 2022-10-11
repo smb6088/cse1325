@@ -59,6 +59,8 @@ public class MainWin extends JFrame
         display.setFont(new Font("SansSerif", Font.BOLD, 18));
         add(display, BorderLayout.CENTER);
         setVisible(true);
+        //scoopcreate.setEnabled(false);
+
     }
 
     public void onQuitClick()
@@ -147,7 +149,7 @@ public class MainWin extends JFrame
         else if(Screen.SCOOPS == screen)
         {
             Object[] arr = emporium.scooop();
-            display.setText("<html>" +"<p>SCOOPS</p>" + Arrays.toString(arr).replace("[","").replace("]", "")
+            display.setText("<html>" +"<p>SCOOPS</p>" + Arrays.toString(arr).replace("[","").replace("]", "").replaceAll(" ", " ")
                 + "</html>");
         }
         
