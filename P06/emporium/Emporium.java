@@ -12,17 +12,32 @@ public class Emporium
 
 	public void addMixInFlavor(MixInFlavor flavor)
 	{
-		this.mixinflavors.add(flavor);
+		mixinflavors.add(flavor);
 	}
 
 	public void addIceCreamFlavor(IceCreamFlavor flavor)
 	{
-		this.icecreamflavors.add(flavor);
+		icecreamflavors.add(flavor);
 	}
 
 	public void addScoop(Scoop scoop)
 	{
-		this.scoops.add(scoop);
+		scoops.add(scoop);
+	}
+
+	public Object[] iceCreamFlavors()
+	{
+		return icecreamflavors.toArray();
+	}
+
+	public Object[] mixInFlavors()
+	{
+		return mixinflavors.toArray();
+	}
+
+	public Object[] scoops()
+	{
+		return scoops.toArray();
 	}
 
 }

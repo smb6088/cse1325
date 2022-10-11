@@ -32,9 +32,9 @@ public class MainWin extends JFrame
         JMenuItem about = new JMenuItem("About");
 
         quit.addActionListener(event-> onQuitClick());
-        icecreamview.addActionListener(event -> view());
-        mixinview.addActionListener(event -> view());
-        scoopview.addActionListener(event -> view());
+        icecreamview.addActionListener(event -> view(Screen.ICE_CREAM_FLAVORS));
+        mixinview.addActionListener(event -> view(Screen.MIX_IN_FLAVORS));
+        scoopview.addActionListener(event -> view(Screen.SCOOPS));
         icecreamcreate.addActionListener(event -> onCreateIceCreamFlavorClick());
         mixincreate.addActionListener(event -> onCreateMixInFlavorClick());
         scoopcreate.addActionListener(event -> onCreateScoopClick());
@@ -56,6 +56,7 @@ public class MainWin extends JFrame
         setJMenuBar(menubar);
         emporium =  new Emporium();
         display = new JLabel();
+        display.setFont(new Font("SansSerif", Font.BOLD, 18));
         add(display, BorderLayout.CENTER);
         setVisible(true);
     }
@@ -89,17 +90,20 @@ public class MainWin extends JFrame
 
         MixInFlavor mixinadd = new MixInFlavor(name, description, cost, price);
         emporium.addMixInFlavor(mixinadd);
+         //JList b= new JList(emporium.iceCreamFlavors());
+
+
     }
 
     public void onAboutClick()
     {
         JDialog about = new JDialog();
         about.setLayout(new FlowLayout());
-        about.setTitle("The Game of Nim");
+        about.setTitle("Ice cream");
         
         
         JLabel title = new JLabel("<html>"
-          + "<p><font size=+4>Nim</font></p>"
+          + "<p><font size=+4>Ice Cream</font></p>"
           + "</html>");
         about.add(title);
 
@@ -107,9 +111,6 @@ public class MainWin extends JFrame
           + "<p>Version 1.00</p>"
           + "<p> fake Copyright 2022-2100 by Siddahrt M. Bhagavagar</p>"
           + "<p>Licensed under Gnu GPL 3.0</p>"
-          + "<p><font size=-2>https://commons.wikimedia.org/wiki/File:Pyramidal_matches.svg</font></p>"
-          + "<p>Robot by FreePik.com, licensed for personal</p><p>and commercial purposes with attribution</p>"
-          + "<p><font size=-2>https://www.freepik.com/free-vector/grey-robot-silhouettes_714902.htm</font></p>"
           + "</html>");
         about.add(artists);
 
@@ -121,13 +122,36 @@ public class MainWin extends JFrame
         about.setVisible(true);
     }
 
-    public void view()
+    public void view(Screen screen)
     {
-
+          display.setIcon(null);  // remove the splash image if present
+        display.setHorizontalAlignment(JLabel.LEFT);
+        display.setVerticalAlignment(JLabel.TOP);
+        if(Screen.ICE_CREAM_FLAVORS == screen)
+        {
+            display.setText("<html>" +"<p>ICE_CREAM_FLAVORS</p>" + emporium.iceCreamFlavors()
+                              + "</html>");
+        }
+        else if(Screen.MIX_IN_FLAVORS == screen)
+        {
+            display.setText("<html>" + "<p>MIX_IN_FLAVORS</p>"+ emporium.mixInFlavors()
+                              + "</html>");
+        }
+        else
+        {
+            display.setText("<html>" + "<p>SCOOPS</p>"+emporium.scoops()
+                              + "</html>");
+        }
+        
     }
 
     public void onCreateScoopClick(){
 
+    }
+    private enum Screen {
+    ICE_CREAM_FLAVORS,
+    MIX_IN_FLAVORS,
+    SCOOPS;
     }
 
     private JLabel display;
