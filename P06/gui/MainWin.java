@@ -1,7 +1,12 @@
+package gui;
+
+
 import java.awt.*;
 import javax.swing.*;
+import product.*;
+import emporium.*;
 
-package class MainWin extends JFrame 
+public class MainWin extends JFrame 
 {
     public MainWin()
     {
@@ -49,8 +54,9 @@ package class MainWin extends JFrame
         menubar.add(create);
         menubar.add(help);
         setJMenuBar(menubar);
-        this.emporium = emporium;
-        this.display = new JLabel();
+        emporium =  new Emporium();
+        display = new JLabel();
+        add(display, BorderLayout.CENTER);
         setVisible(true);
     }
 
@@ -59,6 +65,72 @@ package class MainWin extends JFrame
         System.exit(0);
     }
 
-    public 
+    public void onCreateIceCreamFlavorClick()
+    {
+        String name = JOptionPane.showInputDialog(this,
+            "Name?");
+        String description = JOptionPane.showInputDialog(this,
+            "Description?");
+        int price = Integer.parseInt(JOptionPane.showInputDialog(this,
+            "Price?"));
+        int cost = Integer.parseInt(JOptionPane.showInputDialog(this,
+            "Cost?"));
+
+        IceCreamFlavor addicecream = new IceCreamFlavor(name, description, cost, price);
+        emporium.addIceCreamFlavor(addicecream);
+    }
+
+    public void onCreateMixInFlavorClick()
+    {
+        String name = JOptionPane.showInputDialog(this,"Name?");
+        String description = JOptionPane.showInputDialog(this,"Description?");
+        int price = Integer.parseInt(JOptionPane.showInputDialog(this,"Price?"));
+        int cost = Integer.parseInt(JOptionPane.showInputDialog(this,"Cost?"));
+
+        MixInFlavor mixinadd = new MixInFlavor(name, description, cost, price);
+        emporium.addMixInFlavor(mixinadd);
+    }
+
+    public void onAboutClick()
+    {
+        JDialog about = new JDialog();
+        about.setLayout(new FlowLayout());
+        about.setTitle("The Game of Nim");
+        
+        
+        JLabel title = new JLabel("<html>"
+          + "<p><font size=+4>Nim</font></p>"
+          + "</html>");
+        about.add(title);
+
+        JLabel artists = new JLabel("<html>"
+          + "<p>Version 1.00</p>"
+          + "<p> fake Copyright 2022-2100 by Siddahrt M. Bhagavagar</p>"
+          + "<p>Licensed under Gnu GPL 3.0</p>"
+          + "<p><font size=-2>https://commons.wikimedia.org/wiki/File:Pyramidal_matches.svg</font></p>"
+          + "<p>Robot by FreePik.com, licensed for personal</p><p>and commercial purposes with attribution</p>"
+          + "<p><font size=-2>https://www.freepik.com/free-vector/grey-robot-silhouettes_714902.htm</font></p>"
+          + "</html>");
+        about.add(artists);
+
+        JButton ok = new JButton("OK");
+        ok.addActionListener(event -> about.setVisible(false));
+        about.add(ok);
+        
+        about.setSize(450,400);
+        about.setVisible(true);
+    }
+
+    public void view()
+    {
+
+    }
+
+    public void onCreateScoopClick(){
+
+    }
+
+    private JLabel display;
+    public Emporium emporium; 
 
 }
