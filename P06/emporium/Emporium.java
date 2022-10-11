@@ -6,23 +6,23 @@ import java.util.ArrayList;
 public class Emporium 
 {
 
-	private ArrayList<MixInFlavor> mixinflavors ;
-	private ArrayList<IceCreamFlavor> icecreamflavors;
-	private ArrayList<Scoop> scoops;
+	private ArrayList<MixInFlavor> mixinflavors = new ArrayList<>();
+	private ArrayList<IceCreamFlavor> icecreamflavors = new ArrayList<>();
+	private ArrayList<Scoop> scoops = new ArrayList<>();
 
 	public void addMixInFlavor(MixInFlavor flavor)
 	{
-		mixinflavors.add(flavor);
+		this.mixinflavors.add(flavor);
 	}
 
 	public void addIceCreamFlavor(IceCreamFlavor flavor)
 	{
-		icecreamflavors.add(flavor);
+		this.icecreamflavors.add(flavor);
 	}
 
 	public void addScoop(Scoop scoop)
 	{
-		scoops.add(scoop);
+		this.scoops.add(scoop);
 	}
 
 	public Object[] iceCreamFlavors()
@@ -35,7 +35,7 @@ public class Emporium
 		return mixinflavors.toArray();
 	}
 
-	public Object[] scoops()
+	public Object[] scooop()
 	{
 		return scoops.toArray();
 	}

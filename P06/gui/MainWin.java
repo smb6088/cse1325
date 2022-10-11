@@ -1,6 +1,6 @@
 package gui;
 
-
+import java.util.*;
 import java.awt.*;
 import javax.swing.*;
 import product.*;
@@ -54,7 +54,7 @@ public class MainWin extends JFrame
         menubar.add(create);
         menubar.add(help);
         setJMenuBar(menubar);
-        emporium =  new Emporium();
+        this.emporium = new Emporium();
         display = new JLabel();
         display.setFont(new Font("SansSerif", Font.BOLD, 18));
         add(display, BorderLayout.CENTER);
@@ -72,13 +72,17 @@ public class MainWin extends JFrame
             "Name?");
         String description = JOptionPane.showInputDialog(this,
             "Description?");
-        int price = Integer.parseInt(JOptionPane.showInputDialog(this,
-            "Price?"));
-        int cost = Integer.parseInt(JOptionPane.showInputDialog(this,
-            "Cost?"));
+        String sprice = JOptionPane.showInputDialog(this,
+            "Price?");
+        int price = Integer.parseInt(sprice);
+
+        String scost = JOptionPane.showInputDialog(this,
+            "Cost?");
+        int cost = Integer.parseInt(scost);
 
         IceCreamFlavor addicecream = new IceCreamFlavor(name, description, cost, price);
         emporium.addIceCreamFlavor(addicecream);
+        view(Screen.ICE_CREAM_FLAVORS);
     }
 
     public void onCreateMixInFlavorClick()
@@ -90,7 +94,7 @@ public class MainWin extends JFrame
 
         MixInFlavor mixinadd = new MixInFlavor(name, description, cost, price);
         emporium.addMixInFlavor(mixinadd);
-         //JList b= new JList(emporium.iceCreamFlavors());
+        view(Screen.MIX_IN_FLAVORS);
 
 
     }
@@ -129,18 +133,21 @@ public class MainWin extends JFrame
         display.setVerticalAlignment(JLabel.TOP);
         if(Screen.ICE_CREAM_FLAVORS == screen)
         {
-            display.setText("<html>" +"<p>ICE_CREAM_FLAVORS</p>" + emporium.iceCreamFlavors()
-                              + "</html>");
+            Object[] arr = emporium.iceCreamFlavors();
+            display.setText("<html>" +"<p>ICE_CREAM_FLAVORS</p>" + Arrays.toString(arr).replace("[","").replace("]", "").replaceAll(",", "<br/>")
+                + "</html>");
         }
         else if(Screen.MIX_IN_FLAVORS == screen)
         {
-            display.setText("<html>" + "<p>MIX_IN_FLAVORS</p>"+ emporium.mixInFlavors()
-                              + "</html>");
-        }
+           Object[] arr = emporium.mixInFlavors();
+            display.setText("<html>" +"<p>MIX_IN_FLAVORS</p>" + Arrays.toString(arr).replace("[","").replace("]", "").replaceAll(",", "<br/>")
+                + "</html>");
+           }
         else
         {
-            display.setText("<html>" + "<p>SCOOPS</p>"+emporium.scoops()
-                              + "</html>");
+            Object[] arr = emporium.scooop();
+            display.setText("<html>" +"<p>SCOOPS</p>" + Arrays.toString(arr).replace("[","").replace("]", "").replaceAll(",", "<br/>")
+                + "</html>");
         }
         
     }
