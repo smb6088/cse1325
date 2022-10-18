@@ -3,8 +3,14 @@ package gui;
 import java.util.*;
 import java.awt.*;
 import javax.swing.*;
+import java.io.*;
 import product.*;
 import emporium.*;
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import java.awt.image.BufferedImage;
+import javax.imageio.ImageIO;
 
 public class MainWin extends JFrame 
 {
@@ -14,7 +20,7 @@ public class MainWin extends JFrame
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(400,200);
         emporium = new Emporium();
-
+        this.filename = filename;
         //menu
 
         JMenuBar menubar = new JMenuBar();
@@ -58,80 +64,80 @@ public class MainWin extends JFrame
         setJMenuBar(menubar);
 
         JToolBar toolbar = new JToolBar("Ice cream Controls");
-        ImageIcon imageIcon = new ImageIcon(new ImageIcon("gui/save-file.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
+        ImageIcon imageIcon = new ImageIcon(new ImageIcon("gui/save-file.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT));
         //ImageIcon t = new ImageIcon("gui/save-file.png");
         //t.getImage();
         //t.getScaledInstance(20, 20, Image.SCALE_DEFAULT);
         JButton save = new JButton(imageIcon);
         save.setActionCommand("save");
-        save.setToolTipText("Save to write all the data");
+        save.setToolTipText("Save to write all the data to the current filename");
         //save.setBorder(null);
         toolbar.add(save);
         save.addActionListener(event -> onSaveClick());
 
         toolbar.add(Box.createHorizontalStrut(25));
-        ImageIcon icon1 = new ImageIcon(new ImageIcon("gui/save-as.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
+        ImageIcon icon1 = new ImageIcon(new ImageIcon("gui/save-as.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT));
         JButton saveas = new JButton(icon1);
         saveas.setActionCommand("save-as");
-        saveas.setToolTipText("Save as");
+        saveas.setToolTipText("Save as to change the current filename");
         //saveas.setBorder(null);
         toolbar.add(saveas);
         saveas.addActionListener(event -> onSaveAsClick());
 
-        ImageIcon icon2 = new ImageIcon(new ImageIcon("gui/open.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
+        ImageIcon icon2 = new ImageIcon(new ImageIcon("gui/open.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT));
 
         JButton open = new JButton(icon2);
         open.setActionCommand("open");
-        open.setToolTipText("open");
+        open.setToolTipText("open the filename");
         //open.setBorder(null);
         toolbar.add(open);
         open.addActionListener(event -> onOpenClick());
 
-        ImageIcon icon3 = new ImageIcon(new ImageIcon("gui/ice-cream.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
+        ImageIcon icon3 = new ImageIcon(new ImageIcon("gui/ice-cream.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT));
         JButton creamcreate  = new JButton(icon3);
         creamcreate.setActionCommand("create a ice cream flavor");
-        creamcreate.setToolTipText("Save to write all the data");
+        creamcreate.setToolTipText("create a Ice Cream Flavor");
         //creamcreate.setBorder(null);
         toolbar.add(creamcreate);
         creamcreate.addActionListener(event -> onCreateIceCreamFlavorClick());
 
-        ImageIcon icon4 = new ImageIcon(new ImageIcon("gui/sprinkles.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
+        ImageIcon icon4 = new ImageIcon(new ImageIcon("gui/sprinkles.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT));
         JButton mixcreate = new JButton(icon4);
-        mixcreate.setActionCommand("save");
-        mixcreate.setToolTipText("Save to write all the data");
+        mixcreate.setActionCommand("Mix In");
+        mixcreate.setToolTipText("Create Mix In Flavor");
         //mixcreate.setBorder(null);
         toolbar.add(mixcreate);
         mixcreate.addActionListener(event -> onCreateMixInFlavorClick());
 
 
-        ImageIcon icon5 = new ImageIcon(new ImageIcon("gui/ice-cream-cup.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
+        ImageIcon icon5 = new ImageIcon(new ImageIcon("gui/ice-cream-cup.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT));
         JButton createscop = new JButton(icon5);
-        createscop.setActionCommand("save");
-        createscop.setToolTipText("Save to write all the data");
+        createscop.setActionCommand("Scoop");
+        createscop.setToolTipText("Create Scoop");
         //createscop.setBorder(null);
         toolbar.add(createscop);
         createscop.addActionListener(event -> onCreateScoopClick());
 
-        ImageIcon icon6 = new ImageIcon(new ImageIcon("gui/ice-cream.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
+        ImageIcon icon6 = new ImageIcon(new ImageIcon("gui/ice-cream.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT));
         JButton creamview = new JButton(icon6);
-        creamview.setActionCommand("save");
-        creamview.setToolTipText("Save to write all the data");
+        creamview.setActionCommand("View Ice Cream");
+        creamview.setToolTipText("View Ice Cream Flavors");
         //creamview.setBorder(null);
         toolbar.add(creamview);
         creamview.addActionListener(event -> view(Screen.ICE_CREAM_FLAVORS));
 
-        ImageIcon icon7 = new ImageIcon(new ImageIcon("gui/sprinkles.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
+        ImageIcon icon7 = new ImageIcon(new ImageIcon("gui/sprinkles.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT));
         JButton mixview = new JButton(icon7);
-        mixview.setActionCommand("save");
-        mixview.setToolTipText("Save to write all the data");
+        mixview.setActionCommand("View Mix In");
+        mixview.setToolTipText("View Mix In Flavors");
         //mixview.setBorder(null);
         toolbar.add(mixview);
         mixview.addActionListener(event ->view(Screen.MIX_IN_FLAVORS) );
 
-        ImageIcon icon8 = new ImageIcon(new ImageIcon("gui/ice-cream-cup.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
+        ImageIcon icon8 = new ImageIcon(new ImageIcon("gui/ice-cream-cup.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT));
         JButton viewscop = new JButton(icon8);
-        viewscop.setActionCommand("save");
-        viewscop.setToolTipText("Save to write all the data");
+        viewscop.setActionCommand("View Scoop");
+        viewscop.setToolTipText("View Scoop");
         //viewscop.setBorder(null);
         toolbar.add(viewscop);
         viewscop.addActionListener(event -> view(Screen.SCOOPS));
@@ -193,17 +199,22 @@ public class MainWin extends JFrame
         JDialog about = new JDialog();
         about.setLayout(new FlowLayout());
         about.setTitle("Ice cream");
-        /* 
+
+        
         try {
-            BufferedImage myPicture = ImageIO.read(new File("gui/logo.png"));
+            //Canvas can = new Canvas();
+            //label.setIcon(new ImageIcon(new ImageIcon("icon.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT)));
+            BufferedImage myPicture = ImageIO.read(new File("gui/Untitled_Artwork.jpg"));
             JLabel logo = new JLabel(new ImageIcon(myPicture));
+            logo.setPreferredSize(new Dimension(300, 100));
+            about.add(new Canvas());
             about.add(logo);
+
         } catch(IOException e) {
         }
-        */
         JLabel title = new JLabel("<html>"
-          + "<p><font size=+4>MICE</font></p>"
-          + "</html>");
+          + "<br/><p><font size=+4>MICE</font></p>"
+          + "</html>", JLabel.CENTER);
         about.add(title);
 
         JLabel subTitle = new JLabel("<html>"
@@ -212,10 +223,12 @@ public class MainWin extends JFrame
         about.add(subTitle);
 
         JLabel artists = new JLabel("<html>"
-          + "<p>Version 0.3</p>"
-          + "<p> Copyright 2022-2100 by Siddahrt M. Bhagavagar</p>"
+          + "<br/><p>Version 0.3</p>"
+          + "<p>Copyright 2022 by Siddharth Bhagvagar</p>"
           + "<p>Licensed under Gnu GPL 3.0</p>"
-          + "</html>");
+          + "Logo by Schmidsi, per the Pixabay License"
+          + "<p><font size=-2>https://pixabay.com/en/ice-ice-cream-cone-ice-ball-pink-1429596/</font></p>"
+          + "<br/></html>", JLabel.CENTER);
         about.add(artists);
 
         JButton ok = new JButton("OK");
@@ -316,20 +329,21 @@ public class MainWin extends JFrame
 
     public void onSaveClick()
     {   
-         try (BufferedWriter bw = new BufferedWriter(new FileWriter(new File(filename))) {
+         try (BufferedWriter out = new BufferedWriter(new FileWriter(filename))) {
             //bw.write(MAGIC_COOKIE + '\n');
             //bw.write(FILE_VERSION + '\n');
-            emporium.save(bw);
+            emporium.save(out);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Unable to open " + filename + '\n' + e,
                 "Failed", JOptionPane.ERROR_MESSAGE); 
         }
     
     }
+
     public void onSaveAsClick()
     {   
         final JFileChooser fc = new JFileChooser(filename);  // Create a file chooser dialog
-        FileFilter miceFiles = new FileNameExtensionFilter("MICE files", "mice");
+        FileFilter miceFiles = new FileNameExtensionFilter("mice files", "mice");
         fc.addChoosableFileFilter(miceFiles);         // Add "Nim file" filter
         fc.setFileFilter(miceFiles);                  // Show Nim files only by default
         
@@ -338,15 +352,16 @@ public class MainWin extends JFrame
             filename = fc.getSelectedFile();         // Obtain the selected File object
             if(!filename.getAbsolutePath().endsWith(".mice"))  // Ensure it ends with ".nim"
                 filename = new File(filename.getAbsolutePath() + ".mice");
-            onSaveGameClick();                       // Delegate to Save method
+            onSaveClick();                       // Delegate to Save method
         }
         
     }
+
     public void onOpenClick()
     {   
         
         final JFileChooser fc = new JFileChooser(filename);  // Create a file chooser dialog
-        FileFilter mcieFiles = new FileNameExtensionFilter("MICE files", "mice");
+        FileFilter miceFiles = new FileNameExtensionFilter("mice files", "mice");
         fc.addChoosableFileFilter(miceFiles);         // Add "Nim file" filter
         fc.setFileFilter(miceFiles);                  // Show Nim files only by default
         
@@ -357,7 +372,7 @@ public class MainWin extends JFrame
             try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
                 Emporium emporium = new Emporium(br);
                 
-                MainWin.view();
+                //view();
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(this,"Unable to open " + filename + '\n' + e, 
                     "Failed", JOptionPane.ERROR_MESSAGE); 
