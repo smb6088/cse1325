@@ -265,8 +265,9 @@ public class MainWin extends JFrame
         
     }
 
-    public void onCreateScoopClick(){
-
+    public void onCreateScoopClick()
+    {
+        /*
         Object[] arr = emporium.iceCreamFlavors();
         ImageIcon icon = new ImageIcon("Untitled_Artwork.jpg");
         Object name = (Object) JOptionPane.showInputDialog(this,
@@ -323,8 +324,31 @@ public class MainWin extends JFrame
     while(i < temp.length || cor != true);
         emporium.addScoop(cop);
         view(Screen.SCOOPS);
+    */
+        
+        IceCreamFlavor icf = (IceCreamFlavor) JOptionPane.showInputDialog(this, 
+            "Ice Cream Flavor?", "New Scoop", JOptionPane.QUESTION_MESSAGE, null, 
+            emporium.iceCreamFlavors(), null);
+        if(icf != null) {
+            Scoop scoop = new Scoop(icf);
+            if(emporium.mixInFlavors().length > 0) {
+                String prompt = "<html>" + scoop + "<br/>Add a mix in?</html>";
+                while(true) {
+                    MixInFlavor mif = (MixInFlavor) JOptionPane.showInputDialog(this, prompt, 
+                        "Add Mix In", JOptionPane.QUESTION_MESSAGE, null, 
+                        emporium.mixInFlavors(), null);
+                    if(mif == null) break;
+                    MixInAmount mia = (MixInAmount) JOptionPane.showInputDialog(this, prompt, 
+                        "Add Mix In", JOptionPane.QUESTION_MESSAGE, null, 
+                        MixInAmount.values(), MixInAmount.Normal);
+                    scoop.addMixIn(new MixIn(mif, mia));
+                    prompt = "<html>" + scoop + "<br/>Add another mix in?</html>";
+                }
+            }
+            emporium.addScoop(scoop);
+            view(Screen.SCOOPS);
 
-
+    }
     }
 
     public void onSaveClick()
