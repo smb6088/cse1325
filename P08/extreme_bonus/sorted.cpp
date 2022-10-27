@@ -1,11 +1,12 @@
 #include <iostream>
 #include <algorithm>
+#include <vector>
 
 int main()
 {
 	std::string s;
 	std::vector<std::string> v;
-	while(true)
+	while(std::cin)
 	{
 		std::getline(std::cin, s);
 		if(std::cin.eof())
