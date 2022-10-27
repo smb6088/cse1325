@@ -1,14 +1,18 @@
 #include <iostream>
-#include <cstring>
+#include <algorithm>
+#include <string>
 
 int main(int argc, char* argv[])
 {
-	std::string s;
-	strcpy(s,argv[1]);
-	for(char c : s)
-	{
-		std::cout << c << std::endl;
+  for (int i = 1; i < argc; ++i)
+  	{
+
+    	std::string si(argv[i]);
+    	std::reverse(si.begin(), si.end());
+    	std::cout << si << "\n";
 	}
+    
+
 
 	return 0;
 }
