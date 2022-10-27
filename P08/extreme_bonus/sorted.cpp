@@ -7,7 +7,7 @@ int main()
 	std::vector<std::string> v;
 	while(true)
 	{
-		std::cin >> s;
+		std::getline(std::cin, s);
 		if(std::cin.eof())
 		{
 			break;
