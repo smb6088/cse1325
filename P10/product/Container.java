@@ -29,7 +29,7 @@ public class Container {
     
     @Override
     public String toString() {
-        return name;
+        return "" + name;
     }
 
     private String name;

@@ -29,4 +29,18 @@ public class Order{
     public void addServing(Serving serving) {
         servings.add(serving);
     }
+
+    @Override
+    public String toString()
+    {
+    	StringBuilder result = new StringBuilder();
+    	for(Serving m : servings)
+    	{
+    		result.append("" + m.toString() + "\n");
+    	}
+
+    	return result.toString();
+    	
+    }
+
 }

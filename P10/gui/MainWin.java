@@ -15,6 +15,13 @@ import javax.swing.JButton;
 import javax.swing.ImageIcon;
 import javax.imageio.ImageIO;
 
+import javax.swing.JComboBox;
+import javax.swing.JTextField;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerModel;
+import javax.swing.SpinnerNumberModel;
+import javax.swing.DefaultComboBoxModel;
+
 import java.awt.image.BufferedImage;
 
 import javax.swing.BoxLayout;
@@ -91,7 +98,6 @@ public class MainWin extends JFrame {
         quit       .addActionListener(event -> onQuitClick());
         viewICF    .addActionListener(event -> view(Screen.ICE_CREAM_FLAVORS));
         viewMIF    .addActionListener(event -> view(Screen.MIX_IN_FLAVORS));
-        //viewScoop  .addActionListener(event -> view(Screen.SCOOPS));
         createICF  .addActionListener(event -> onCreateIceCreamFlavorClick());
         createMIF  .addActionListener(event -> onCreateMixInFlavorClick());
         createorder.addActionListener(event -> onCreateOrderClick());
@@ -104,7 +110,6 @@ public class MainWin extends JFrame {
         file.add(quit);
         view.add(viewICF);
         view.add(viewMIF);
-        //view.add(viewScoop);
         create.add(createICF);
         create.add(createMIF);
         create.add(createorder);
@@ -148,6 +153,12 @@ public class MainWin extends JFrame {
 
 
         // Create the product buttons using the icons provided
+        JButton createContainerButton  = new JButton(new ImageIcon("gui/createScoopButton.png"));
+          createContainerButton.setActionCommand("New Container");
+          createContainerButton.setToolTipText("New Container");
+          toolbar.add(createContainerButton);
+          createContainerButton.addActionListener(event -> onCreateContainerClick());
+
         JButton createIceCreamFlavorButton  = new JButton(new ImageIcon("gui/createIceCreamFlavorButton.png"));
           createIceCreamFlavorButton.setActionCommand("New ice cream flavor");
           createIceCreamFlavorButton.setToolTipText("Create new ice cream flavor");
@@ -160,15 +171,20 @@ public class MainWin extends JFrame {
           toolbar.add(createMixInFlavorButton);
           createMixInFlavorButton.addActionListener(event -> onCreateMixInFlavorClick());
 
-        createScoopButton  = new JButton(new ImageIcon("gui/createScoopButton.png"));
-          createScoopButton.setActionCommand("New scoop");
-          createScoopButton.setToolTipText("New scoop");
-          toolbar.add(createScoopButton);
-          createScoopButton.addActionListener(event -> onCreateScoopClick());
-          createScoopButton.setEnabled(false);
+        JButton createOrderButton  = new JButton(new ImageIcon("gui/createScoopButton.png"));
+          createOrderButton.setActionCommand("New order");
+          createOrderButton.setToolTipText("New Order");
+          toolbar.add(createOrderButton);
+          createOrderButton.addActionListener(event -> onCreateOrderClick());
 
         toolbar.add(Box.createHorizontalStrut(25));
         
+        JButton viewContainerButton  = new JButton(new ImageIcon("gui/viewScoopsButton.png"));
+          viewContainerButton.setActionCommand("View Containers");
+          viewContainerButton.setToolTipText("View Containers");
+          toolbar.add(viewContainerButton);
+          viewContainerButton.addActionListener(event -> view(Screen.CONTAINER));
+
         JButton viewIceCreamFlavorsButton  = new JButton(new ImageIcon("gui/viewIceCreamFlavorsButton.png"));
           viewIceCreamFlavorsButton.setActionCommand("View ice cream flavors");
           viewIceCreamFlavorsButton.setToolTipText("View ice cream flavors");
@@ -181,11 +197,11 @@ public class MainWin extends JFrame {
           toolbar.add(viewMixInFlavorsButton);
           viewMixInFlavorsButton.addActionListener(event -> view(Screen.MIX_IN_FLAVORS));
 
-        JButton viewScoopsButton  = new JButton(new ImageIcon("gui/viewScoopsButton.png"));
-          viewScoopsButton.setActionCommand("View scoops");
-          viewScoopsButton.setToolTipText("View scoops");
-          toolbar.add(viewScoopsButton);
-          //viewScoopsButton.addActionListener(event -> view(Screen.SCOOPS));
+        JButton viewOrderButton  = new JButton(new ImageIcon("gui/viewScoopsButton.png"));
+          viewOrderButton.setActionCommand("View Orders");
+          viewOrderButton.setToolTipText("View Orders");
+          toolbar.add(viewOrderButton);
+          viewOrderButton.addActionListener(event -> view(Screen.ORDERS));
 
         getContentPane().add(toolbar, BorderLayout.PAGE_START);
         
@@ -209,7 +225,7 @@ public class MainWin extends JFrame {
         emporium = new Emporium();
         filename = new File("untitled." + EXTENSION);
         setDirty(false);     // disables Save when no new data exists
-        setScoopAvailable(); // disables new Scoop when no ice cream flavors exist
+        // disables new Scoop when no ice cream flavors exist
         view(Screen.ICE_CREAM_FLAVORS);   
     }
     
@@ -219,50 +235,125 @@ public class MainWin extends JFrame {
 
     protected void onCreateIceCreamFlavorClick() {
         try {
-            emporium.addIceCreamFlavor(new IceCreamFlavor(
-                JOptionPane.showInputDialog(this, "Name?", "Create Ice Cream Flavor", JOptionPane.QUESTION_MESSAGE),
-                JOptionPane.showInputDialog(this, "Description?", "Create Ice Cream Flavor", JOptionPane.QUESTION_MESSAGE),
-                Integer.parseInt(JOptionPane.showInputDialog(this, "Price?", "Create Ice Cream Flavor", JOptionPane.QUESTION_MESSAGE)),
-                Integer.parseInt(JOptionPane.showInputDialog(this, "Cost?", "Create Ice Cream Flavor", JOptionPane.QUESTION_MESSAGE))
-            ));
-        } catch(Exception e) {
+            JLabel name = new JLabel("<HTML><br/>Name</HTML>");
+            JTextField names = new JTextField(20);
+
+            JLabel description = new JLabel("<HTML><br/>Description</HTML>");
+            JTextField descriptions = new JTextField(20);
+
+            JLabel num = new JLabel("<HTML><br/>Cost</HTML>");
+            SpinnerModel range = new SpinnerNumberModel(0, 0, 100, 1);
+            JSpinner nums = new JSpinner(range);
+
+            JLabel num2 = new JLabel("<HTML><br/>Price</HTML>");
+            SpinnerModel range2 = new SpinnerNumberModel(0, 0, 100, 1);
+            JSpinner nums2 = new JSpinner(range2);
+
+            Object[] objects = { 
+                name,   names, 
+                description, descriptions, 
+                num,    nums,
+                num2, nums2};
+
+            int button = JOptionPane.showConfirmDialog( // Show the dialog
+                this,
+                objects,
+                "New Ice Cream Flavor",
+                JOptionPane.OK_CANCEL_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null);
+
+            if(button == JOptionPane.OK_OPTION){
+                int maxu = (Integer) nums.getValue();
+                int maxu2 = (Integer) nums2.getValue();
+                emporium.addIceCreamFlavor(new IceCreamFlavor(names.getText(), descriptions.getText(), maxu, maxu2));
+            }
+        }catch(Exception e) {
+            System.err.println("onCreateIceCreamFlavorClick exception: " + e);
         }
         try {
-            setScoopAvailable();
             setDirty(true);
             view(Screen.ICE_CREAM_FLAVORS);         
         } catch(Exception e) {
             System.err.println("onCreateIceCreamFlavorClick exception: " + e);
         }
+
     }
     protected void onCreateMixInFlavorClick() {
         try {
-            emporium.addMixInFlavor(new MixInFlavor(
-                JOptionPane.showInputDialog(this, "Name?", "Create Mix In Flavor", JOptionPane.QUESTION_MESSAGE),
-                JOptionPane.showInputDialog(this, "Description?", "Create Mix In Flavor", JOptionPane.QUESTION_MESSAGE),
-                Integer.parseInt(JOptionPane.showInputDialog(this, "Price?", "Create Mix In Flavor", JOptionPane.QUESTION_MESSAGE)),
-                Integer.parseInt(JOptionPane.showInputDialog(this, "Cost?", "Create Mix In Flavor", JOptionPane.QUESTION_MESSAGE))
-            ));   
+            JLabel name = new JLabel("<HTML><br/>Name</HTML>");
+            JTextField names = new JTextField(20);
+
+            JLabel description = new JLabel("<HTML><br/>Description</HTML>");
+            JTextField descriptions = new JTextField(20);
+
+            JLabel num = new JLabel("<HTML><br/>Cost</HTML>");
+            SpinnerModel range = new SpinnerNumberModel(0, 0, 100, 1);
+            JSpinner nums = new JSpinner(range);
+
+            JLabel num2 = new JLabel("<HTML><br/>Price</HTML>");
+            SpinnerModel range2 = new SpinnerNumberModel(0, 0, 100, 1);
+            JSpinner nums2 = new JSpinner(range2);
+
+            Object[] objects = { 
+                name,   names, 
+                description, descriptions, 
+                num,    nums,
+                num2, nums2};
+
+            int button = JOptionPane.showConfirmDialog( // Show the dialog
+                this,
+                objects,
+                "New Mix In Flavor",
+                JOptionPane.OK_CANCEL_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null);
+
+            if(button == JOptionPane.OK_OPTION){
+                int maxu = (Integer) nums.getValue();
+                int maxu2 = (Integer) nums2.getValue();
+                emporium.addMixInFlavor(new MixInFlavor(names.getText(), descriptions.getText(), maxu, maxu2));
+            }
             setDirty(true);
-            view(Screen.MIX_IN_FLAVORS);         
-        } catch(Exception e) {
+            view(Screen.MIX_IN_FLAVORS);
+        }catch(Exception e) {
             System.err.println("onCreateMixInFlavorClick exception: " + e);
         }
     }
     protected void onCreateContainerClick(){
-
         try {
-            emporium.addContainer(new Container(
-                JOptionPane.showInputDialog(this, "Name?", "Create Mix In Flavor", JOptionPane.QUESTION_MESSAGE),
-                JOptionPane.showInputDialog(this, "Description?", "Create Mix In Flavor", JOptionPane.QUESTION_MESSAGE),
-                Integer.parseInt(JOptionPane.showInputDialog(this, "Max Scoops", "Create Mix In Flavor", JOptionPane.QUESTION_MESSAGE))
-            ));   
+            JLabel name = new JLabel("<HTML><br/>Name</HTML>");
+            JTextField names = new JTextField(20);
+
+            JLabel description = new JLabel("<HTML><br/>Description</HTML>");
+            JTextField descriptions = new JTextField(20);
+
+            JLabel num = new JLabel("<HTML><br/>MaxScoops</HTML>");
+            SpinnerModel range = new SpinnerNumberModel(0, 0, 100, 1);
+            JSpinner nums = new JSpinner(range);
+
+            Object[] objects = { 
+                name,   names, 
+                description, descriptions, 
+                num,    nums};
+
+            int button = JOptionPane.showConfirmDialog( // Show the dialog
+                this,
+                objects,
+                "New Container",
+                JOptionPane.OK_CANCEL_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null);
+
+            if(button == JOptionPane.OK_OPTION){
+                int maxu = (Integer) nums.getValue();
+                emporium.addContainer(new Container(names.getText(), descriptions.getText(), maxu));
+            }
             setDirty(true);
-            view(Screen.CONTAINER);         
-        } catch(Exception e) {
+            view(Screen.CONTAINER);
+        }catch(Exception e) {
             System.err.println("onCreateMixInFlavorClick exception: " + e);
         }
-
     }
     protected Scoop onCreateScoopClick() {
             IceCreamFlavor icf = (IceCreamFlavor) JOptionPane.showInputDialog(this, "Ice Cream Flavor?", "New Scoop", JOptionPane.QUESTION_MESSAGE, null, emporium.iceCreamFlavors(), null);
@@ -270,12 +361,41 @@ public class MainWin extends JFrame {
                 Scoop scoop = new Scoop(icf);
                 if(emporium.mixInFlavors().length > 0) {
                     String prompt = "<html>" + scoop + "<br/>Add a mix in?</html>";
-                    while(true) {
-                        MixInFlavor mif = (MixInFlavor) JOptionPane.showInputDialog(this, prompt, "Add Mix In", JOptionPane.QUESTION_MESSAGE, null, emporium.mixInFlavors(), null);
-                        if(mif == null) break;
-                        MixInAmount mia = (MixInAmount) JOptionPane.showInputDialog(this, prompt, "Add Mix In", JOptionPane.QUESTION_MESSAGE, null, MixInAmount.values(), MixInAmount.Normal);
-                        scoop.addMixIn(new MixIn(mif, mia));
-                        prompt = "<html>" + scoop + "<br/>Add another mix in?</html>";
+                    while(true) 
+                    {
+
+                        JLabel type = new JLabel("Mix In Flavors");
+
+                        Object[] diffmixin = emporium.mixInFlavors();
+                        JComboBox<Object> types = new JComboBox<>(diffmixin);
+
+                        JLabel amount = new JLabel(" Amount ");
+                        DefaultComboBoxModel<MixInAmount> cModel = new DefaultComboBoxModel<>(MixInAmount.values());
+                        JComboBox<MixInAmount> amounts = new JComboBox<>(cModel);
+                        //JComboBox amounts = new JComboBox<String>(comboBox);
+
+
+                        Object[] objects = { 
+                            type,   types, 
+                            amount, amounts};
+
+                        int button = JOptionPane.showConfirmDialog( // Show the dialog
+                            this,
+                            objects,
+                            "New Mix In",
+                            JOptionPane.OK_CANCEL_OPTION,
+                            JOptionPane.QUESTION_MESSAGE,
+                            null);
+
+                        if(button == JOptionPane.OK_OPTION){
+                            MixInFlavor temp = (MixInFlavor) types.getSelectedItem();
+                            MixInAmount temp2 = (MixInAmount) amounts.getSelectedItem();
+                        scoop.addMixIn(new MixIn(temp, temp2 ));
+                        }
+                        else
+                        {
+                            break;
+                        }
                     }
                 }
                 return scoop;       
@@ -285,22 +405,29 @@ public class MainWin extends JFrame {
 
     protected Serving onCreateServingClick(){
          try {
-            Container con = (Container) JOptionPane.showInputDialog(this, "Ice Cream Flavor?", "New Scoop", JOptionPane.QUESTION_MESSAGE, null, emporium.containers(), null);
+            Container con = (Container) JOptionPane.showInputDialog(this, "container", "Create a new container", JOptionPane.QUESTION_MESSAGE, null, emporium.containers(), null);
             if(con != null) {
                 Serving serve = new Serving(con);
                 while(true)
                 {
-                    serve.addScoop(onCreateScoopClick());
-                    if(serve == null) break;
+                    Scoop temp = onCreateScoopClick();
+                    if(temp != null) 
+                    {
+                        serve.addScoop(temp);
+                    }
+                    else
+                    {
+                        break;
+                    }
                 }
                 if(emporium.mixInFlavors().length > 0) {
-                    String prompt = "<html>" + serve + "<br/>Add a mix in?</html>";
+                    String prompt = "<html>" + "<br/>Add a new Topping </html>";
                     while(true) {
-                        MixInFlavor mif = (MixInFlavor) JOptionPane.showInputDialog(this, prompt, "Add Mix In", JOptionPane.QUESTION_MESSAGE, null, emporium.mixInFlavors(), null);
+                        MixInFlavor mif = (MixInFlavor) JOptionPane.showInputDialog(this, prompt, "Add Topping", JOptionPane.QUESTION_MESSAGE, null, emporium.mixInFlavors(), null);
                         if(mif == null) break;
-                        MixInAmount mia = (MixInAmount) JOptionPane.showInputDialog(this, prompt, "Add Mix In", JOptionPane.QUESTION_MESSAGE, null, MixInAmount.values(), MixInAmount.Normal);
+                        MixInAmount mia = (MixInAmount) JOptionPane.showInputDialog(this, prompt, "Add Topping amount", JOptionPane.QUESTION_MESSAGE, null, MixInAmount.values(), MixInAmount.Normal);
                         serve.addTopping(new MixIn(mif, mia));
-                        prompt = "<html>" + serve + "<br/>Add another mix in?</html>";
+                        prompt = "<html>" + "<br/>Add another Topping? </html>";
                     }
                 }
                 return serve;          
@@ -314,10 +441,17 @@ public class MainWin extends JFrame {
         Order ord = new Order();
         while(true)
         {   
-            ord.addServing(onCreateServingClick());
-            if(ord == null) break;
-            emporium.addOrder(ord);
+            Serving temp = onCreateServingClick();
+            if(temp != null) 
+            {
+                ord.addServing(temp); 
+            }
+            else
+            {
+                break;
+            }
         }
+        emporium.addOrder(ord);
     }
     
     // File I/O Methods
@@ -340,7 +474,7 @@ public class MainWin extends JFrame {
                 
                 emporium = new Emporium(br);                   // Open a new emporium
                 //view(Screen.SCOOPS);                           // Update the user interface
-                setScoopAvailable();
+                
                 setDirty(false);
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(this,"Unable to load " + filename + '\n' + e, 
@@ -468,12 +602,6 @@ public class MainWin extends JFrame {
         saveButton.setEnabled(isDirty);
         saveAsButton.setEnabled(isDirty);
     };
-
-    private void setScoopAvailable() {
-        boolean scoopIsAvailable = (emporium.iceCreamFlavors().length > 0);
-        createScoop.setEnabled(scoopIsAvailable); // until an ice cream flavor is defined
-        createScoopButton.setEnabled(scoopIsAvailable);
-    }
     
     private Emporium emporium;
     private File filename;

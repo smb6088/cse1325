@@ -43,6 +43,29 @@ public class Serving {
         toppings.add(topping);
     }
 
+    @Override
+    public String toString() {
+    	
+        StringBuilder result = new StringBuilder(container.toString());
+        if(scoops.size() > 0) {
+            String separator = " with a scoop of ";
+            for(Scoop m : scoops) {
+                result.append(separator + m.toString());
+                separator = " and topped with ";
+                if(toppings.size() > 0) 
+                {
+            		for(MixIn t : toppings) 
+            		{
+                		result.append(separator + t.toString());
+                		separator = ", ";
+            		}
+        		}
+            }
+        }
+        
+        return result.toString();
+    }
+
 	private Container container;
 	private ArrayList<Scoop> scoops;
 	private ArrayList<MixIn> toppings;
