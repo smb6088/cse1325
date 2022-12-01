@@ -13,7 +13,57 @@ NOTE: These are measurements which may vary plus your opinions which may vary a 
 QUESTION 1: What Solver command line arguments did you use to achieve a 30 to 45 second runtime? Note: We're only interested in the "real" seconds for this question.
 
 
-
+25
+-498.65334 
+24
+-236.85988 
+23
+-797.53975 
+22
+355.34256
+21
+-488.1224343
+20
+-32.4353
+19
+-12.923445
+18
+654.786533
+17
+455.465897
+16
+323.3435
+15
+234.4967
+14
+-976.4346
+13
+-657.3262657
+12
+557.575
+11
+-96.35362
+10
+-12.2554
+9
+46.64224
+8
+-32.434
+7
+-1.34634
+6
+999
+5
+-2.436332
+4
+-3.43886
+3
+-4.87675
+2
+990
+1
+-0.94634
+0
 
 
 
@@ -94,7 +144,7 @@ sys	0m0.024s
 
 QUESTION 3: Does adding more threads continue to speed up the program? Do more threads ever slow down the program slightly?  Why or why not?
 
-
+yes, adding more threads continue to spreed up the program. In some cases, like when the threads are using the same object to change in this type of cases, the threads needs to wait until the first thread done using the object to start using it, causing to slow the program.
 
 
 
@@ -103,7 +153,7 @@ QUESTION 3: Does adding more threads continue to speed up the program? Do more t
 
 QUESTION 4: Does adding more threads increase the "system load", or is it constant regardless of the number of threads?  Why?
 
-
+Adding more thread decearses the system load because it more threads means less work needed by each thread to complete the program.
 
 
 
