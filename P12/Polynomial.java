@@ -33,7 +33,8 @@ public class Polynomial{
     }
     public void solve(double min, double max, int nthreads, double slices, double precision) {
         roots.clear();
-        Thread[] threads = new Thread[nthreads];
+
+        Thread[] arrthreads = new Thread[nthreads];
         precision = precision/nthreads;
         double temp = (max - min)/10;
         double temp2 = min;
@@ -42,27 +43,25 @@ public class Polynomial{
         {
             if(i == 0)
             {   
-                //threads[i].start();
-                tempid = (int)threads[i].getId();
-                solveRecursive(min, temp2+temp, tempid , slices, precision, 0);
-                
+                tempid = (int)arrthreads[i].getId();
+                solveRecursive(min, temp2+temp, tempid,slices, precision, 0);
+                //arrthreads[i].start();  
             }
             else
             {   
-                //threads[i].start();
-                tempid = (int)threads[i].getId();
+            
+                tempid = (int)arrthreads[i].getId();
                 solveRecursive(temp2+(i*temp), temp2 + ((i+1)*temp), tempid, slices, precision, 0);
-                
+                //arrthreads[i].start();    
             }
         }
 
         for (int j = 0; j < nthreads; j++) {
             try{
-            threads[j].join();
+            arrthreads[j].join();
             }
             catch (InterruptedException e) {} //todo add catch exception
-        }   
-        
+        }
     }
     public Object[] roots() {
         return roots.toArray();
